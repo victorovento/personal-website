@@ -1,58 +1,67 @@
 module.exports = {
   siteMetadata: {
     // Site URL for when it goes live
-    siteUrl: `https://monumental-chimera-b1ace3.netlify.app/`,
+    siteUrl: `https://victorvento.net`,
     // Your Name
-    name: 'Ryan Fitzgerald',
+    name: 'Victor Vento',
     // Main Site Title
-    title: `Ryan Fitzgerald | Full-Stack Developer`,
+    title: `Victor Vento | Software Developer`,
     // Description that goes under your name in main bio
-    description: `Lorem ipsum dolor sit amet consectetur adipisicing elit, ipsum.`,
+    description: `Software Developer - Transforming Ideas into Seamless Software Experiences.`,
     // Optional: Twitter account handle
-    author: `@rfitzio`,
+    author: `@victorovento`,
     // Optional: Github account URL
-    github: `https://github.com/RyanFitzgerald`,
+    github: `https://github.com/victorovento`,
     // Optional: LinkedIn account URL
-    linkedin: `https://github.com/RyanFitzgerald/devfolio`,
+    linkedin: `https://www.linkedin.com/in/vvento/`,
     // Content of the About Me section
-    about: `Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus perferendis porro cumque ea error ab voluptatem. Temporibus adipisci exercitationem similique itaque quibusdam laudantium, qui molestiae quas, aut amet animi id.`,
+    about: `Hello! I'm a passionate ${new Date().getFullYear() - 2000 - (new Date().getMonth() < 6 || (new Date().getMonth() === 6 && new Date().getDate() < 5) ? 1 : 0)}-year-old Software Engineer hailing from the vibrant and culturally rich island of Cuba. With a love for all things tech and a knack for solving complex problems, I've embarked on a journey to make the digital world more efficient and user-friendly.`,
     // Optional: List your projects, they must have `name` and `description`. `link` is optional.
     projects: [
       {
-        name: 'Devfolio',
+        name: 'Statistical variables calculator',
         description:
-          'A zero-config and blazing fast personal site + blog built with GatsbyJs and TailwindCSS',
-        link: 'https://github.com/RyanFitzgerald/devfolio',
+          'Calcule some statistical variables from the comand prompt, CLI application I made with C++',
+        link: 'https://github.com/victorovento/statistical-variables-calculator',
       },
       {
-        name: 'ExtensionKit',
+        name: 'TODO List App',
         description:
-          'Kit to jump-start your Chrome extension projects with a variety of battle-tested starter templates',
-        link: 'https://extensionkit.io/?ref=devfolio',
+          'A fast and responsive To-Do list app made with Node.js, HTML and CSS.',
+        link: 'https://github.com/victorovento/todo-list',
       },
       {
-        name: 'Another Cool Project',
+        name: 'This Portfolio',
         description:
-          'Lorem ipsum dolor sit amet consectetur adipisicing elit ducimus perferendis',
-        link: 'https://github.com/RyanFitzgerald/devfolio',
+          'A very simple portfolio I made using Gatsby.js and Node.js to showcase my skills and experience',
+        link: 'https://github.com/victorovento/website',
       },
     ],
     // Optional: List your experience, they must have `name` and `description`. `link` is optional.
     experience: [
       {
-        name: 'Acme Corp',
-        description: 'Full-Stack Developer, February 2020 - Present',
-        link: 'https://github.com/RyanFitzgerald/devfolio',
+        name: 'WELS Sytems Foundation',
+        location: 'Miami, FL',
+        description: 'Software Developer, Jan 2024 - Present',
+        link: 'https://bwelz.org',
       },
       {
-        name: 'Globex Corp',
-        description: 'Full-Stack Developer, December 2017 - February 2020',
-        link: 'https://github.com/RyanFitzgerald/devfolio',
+        name: 'Upwork',
+        location: 'Miami, FL',
+        description: 'Freelancer, Jun 2023 - Dec 2023',
+        link: 'https://upwork.com',
       },
       {
-        name: 'Hooli',
-        description: 'Full-Stack Developer, May 2015 - December 2017',
-        link: 'https://github.com/RyanFitzgerald/devfolio',
+        name: 'ETECSA',
+        location: 'Pinar del Rio, Cuba',
+        description: 'Software Engineer, January 2023 - June 2023',
+        link: 'https://www.etecsa.cu',
+      },
+      {
+        name: 'Universidad de Pinar del Rio',
+        location: 'Pinar del Rio, Cuba',
+        description: 'Software Developer Internship, Sep 2020 - December 2022',
+        link: 'http://www.upr.edu.cu/home/index',
       },
     ],
     // Optional: List your skills, they must have `name` and `description`.
@@ -60,7 +69,7 @@ module.exports = {
       {
         name: 'Languages & Frameworks',
         description:
-          'JavaScript (ES6+), Golang, Node.js, Express.js, React, Ruby on Rails, PHP',
+          'JavaScript, TypeScript, .NET, Node.js, Express.js, Angular',
       },
       {
         name: 'Databases',
@@ -75,7 +84,6 @@ module.exports = {
   },
   plugins: [
     `gatsby-plugin-react-helmet`,
-    `gatsby-plugin-image`,
     {
       resolve: `gatsby-source-filesystem`,
       options: {
@@ -113,71 +121,10 @@ module.exports = {
         ],
       },
     },
-    {
-      resolve: `gatsby-plugin-sharp`,
-      options: {
-        defaults: {
-          formats: [`auto`, `webp`],
-          placeholder: `dominantColor`,
-          quality: 80,
-        },
-      },
-    },
     `gatsby-transformer-sharp`,
+    `gatsby-plugin-sharp`,
     `gatsby-plugin-postcss`,
-    {
-      resolve: `gatsby-plugin-feed`,
-      options: {
-        query: `
-          {
-            site {
-              siteMetadata {
-                title
-                description
-                siteUrl
-                site_url: siteUrl
-              }
-            }
-          }
-        `,
-        feeds: [
-          {
-            serialize: ({ query: { site, allMarkdownRemark } }) => {
-              return allMarkdownRemark.edges.map((edge) => {
-                return Object.assign({}, edge.node.frontmatter, {
-                  description: edge.node.excerpt,
-                  date: edge.node.frontmatter.date,
-                  url: site.siteMetadata.siteUrl + edge.node.fields.slug,
-                  guid: site.siteMetadata.siteUrl + edge.node.fields.slug,
-                  custom_elements: [{ 'content:encoded': edge.node.html }],
-                });
-              });
-            },
-            query: `
-              {
-                allMarkdownRemark(
-                  sort: { frontmatter: { date: DESC } }
-                ) {
-                  edges {
-                    node {
-                      excerpt
-                      html
-                      fields { slug }
-                      frontmatter {
-                        title
-                        date
-                      }
-                    }
-                  }
-                }
-              }
-            `,
-            output: '/rss.xml',
-            title: "Your Site's RSS Feed",
-          },
-        ],
-      },
-    },
+    `gatsby-plugin-feed`,
     {
       resolve: `gatsby-plugin-google-analytics`,
       options: {
